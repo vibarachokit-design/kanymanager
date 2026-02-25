@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kany Manager Pro - Cosmética Natural de Mejillones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ocre: #D4A373;
+            --ocre-claro: #E9C496;
+            --azul-oceano: #006D77;
+            --azul-claro: #83C5BE;
+            --sal: #F5F5F0;
+            --terracota: #E07A5F;
+            --verde-alga: #81B29A;
+            --texto: #2C3E50;
+            --sombra: rgba(0,0,0,0.1);
+            --whatsapp: #25D366;
+            --instagram: #E4405F;
+            --facebook: #1877F2;
+            --positivo: #4CAF50;
+            --negativo: #f44336;
+            --neutral: #FF9800;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--sal) 0%, #f0e6d3 100%);
+            color: var(--texto);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--azul-oceano) 0%, var(--azul-claro) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px var(--sombra);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--ocre);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 3px solid white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .logo-text span {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .social-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .social-btn.instagram { background: var(--instagram); }
+        .social-btn.facebook { background: var(--facebook); }
+        .social-btn.whatsapp { background: var(--whatsapp); }
+
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--terracota);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            box-shadow: 2px 0 5px var(--sombra);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--texto);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(135deg, var(--ocre-claro) 0%, var(--ocre) 100%);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px var(--sombra);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--ocre);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--azul-oceano);
+            font-weight: 600;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px var(--sombra);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ocre), var(--terracota));
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--azul-oceano);
+            margin: 0.5rem 0;
+        }
+
+        /* Calendar */
+        .calendar-container {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px var(--sombra);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: bold;
+            color: var(--azul-oceano);
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 0.9rem;
+            min-height: 80px;
+        }
+
+        .calendar-day:hover {
+            border-color: var(--ocre);
+            background: var(--sal);
+            transform: scale(1.05);
+        }
+
+        .calendar-day.has-content {
+            background: linear-gradient(135deg, var(--ocre-claro), var(--ocre));
+            color: white;
+            border-color: var(--ocre);
+        }
+
+        .calendar-day.selected {
+            border: 3px solid var(--azul-oceano);
+            transform: scale(1.05);
+        }
+
+        .calendar-day-number {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .calendar-day-content {
+            font-size: 0.7rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .content-indicator {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            background: var(--terracota);
+            border-radius: 50%;
+        }
+
+        /* Campaigns */
+        .campaign-card {
+            background: linear-gradient(135deg, white 0%, var(--sal) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--terracota);
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .campaign-card:hover {
+            transform: translateX(5px);
+        }
+
+        .campaign-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-active { background: var(--verde-alga); color: white; }
+        .status-planned { background: var(--azul-claro); color: white; }
+        .status-ended { background: #ccc; color: #666; }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ocre), var(--terracota));
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        /* Reels Grid */
+        .reels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .reel-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px var(--sombra);
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .reel-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ocre);
+        }
+
+        .reel-preview {
+            height: 200px;
+            background: linear-gradient(135deg, var(--azul-oceano) 0%, var(--verde-alga) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .reel-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .reel-content {
+            padding: 1.5rem;
+        }
+
+        .reel-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--azul-oceano);
+            margin-bottom: 0.5rem;
+        }
+
+        .reel-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .reel-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .reel-tag {
+            background: var(--ocre-claro);
+            color: var(--texto);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+
+        .viral-score {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .reel-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Drop Zone */
+        .drop-zone {
+            border: 3px dashed var(--ocre);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            background: var(--sal);
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drop-zone.drag-over {
+            background: var(--ocre-claro);
+            border-color: var(--terracota);
+            transform: scale(1.02);
+        }
+
+        .drop-zone-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: var(--ocre);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: var(--terracota);
+        }
+
+        /* Canvas */
+        .canvas-container {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        canvas {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--sombra);
+            max-width: 100%;
+        }
+
+        /* Tools */
+        .tools-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tool-btn {
+            padding: 0.8rem;
+            border: 2px solid var(--ocre);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .tool-btn:hover {
+            background: var(--ocre);
+            color: white;
+        }
+
+        .tool-btn.instagram { border-color: var(--instagram); color: var(--instagram); }
+        .tool-btn.instagram:hover { background: var(--instagram); color: white; }
+
+        .tool-btn.facebook { border-color: var(--facebook); color: var(--facebook); }
+        .tool-btn.facebook:hover { background: var(--facebook); color: white; }
+
+        .tool-btn.whatsapp { border-color: var(--whatsapp); color: var(--whatsapp); }
+        .tool-btn.whatsapp:hover { background: var(--whatsapp); color: white; }
+
+        /* Buttons */
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--ocre) 0%, var(--terracota) 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--azul-oceano);
+            border: 2px solid var(--azul-oceano);
+        }
+
+        .btn-instagram {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d);
+            color: white;
+        }
+
+        .btn-facebook {
+            background: var(--facebook);
+            color: white;
+        }
+
+        .btn-whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--azul-oceano);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--ocre);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .platform-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .platform-option {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .platform-option:hover, .platform-option.selected {
+            border-color: var(--ocre);
+            background: var(--sal);
+        }
+
+        .platform-option i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--verde-alga);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 3000;
+            animation: slideInRight 0.3s;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(400px); }
+            to { transform: translateX(0); }
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-chip {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px var(--sombra);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .action-chip:hover {
+            background: var(--ocre);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* API Status */
+        .api-status {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .api-card {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px var(--sombra);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .api-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .api-icon.instagram { background: var(--instagram); }
+        .api-icon.facebook { background: var(--facebook); }
+        .api-icon.whatsapp { background: var(--whatsapp); }
+
+        .api-info h4 {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .api-info span {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .api-toggle {
+            margin-left: auto;
+            width: 50px;
+            height: 26px;
+            background: #ccc;
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .api-toggle.active {
+            background: var(--verde-alga);
+        }
+
+        .api-toggle::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .api-toggle.active::after {
+            transform: translateX(24px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; position: relative; }
+            .main-content { margin-left: 0; }
+            .reels-grid { grid-template-columns: 1fr; }
+            .calendar-grid { gap: 0.2rem; }
+            .calendar-day { min-height: 60px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <span id="toast-icon">✓</span>
+        <span id="toast-message">Operación exitosa</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🌵</div>
+            <div class="logo-text">
+                <h1>Kany Manager Pro</h1>
+                <span>Cosmética Natural de Mejillones</span>
+            </div>
+        </div>
+        <div class="user-menu">
+            <div class="notification-bell">
+                🔔
+                <span class="badge">3</span>
+            </div>
+            <div class="social-links">
+                <a href="https://instagram.com/kany_cosmetica_natural" target="_blank" class="social-btn instagram" title="Instagram">📷</a>
+                <a href="https://facebook.com/LaTienditadekany" target="_blank" class="social-btn facebook" title="Facebook">f</a>
+                <a href="https://wa.me/56966874954" target="_blank" class="social-btn whatsapp" title="WhatsApp">💬</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="nav-item active" onclick="showSection('dashboard')">
+                <span>📊</span>
+                <span>Dashboard</span>
+            </div>
+            <div class="nav-item" onclick="showSection('calendario')">
+                <span>📅</span>
+                <span>Calendario Editorial</span>
+            </div>
+            <div class="nav-item" onclick="showSection('campanas')">
+                <span>🚀</span>
+                <span>Campañas de Venta</span>
+            </div>
+            <div class="nav-item" onclick="showSection('contenido')">
+                <span>🎨</span>
+                <span>Crear Contenido</span>
+            </div>
+            <div class="nav-item" onclick="showSection('reels')">
+                <span>🎬</span>
+                <span>Reels Virales</span>
+            </div>
+            <div class="nav-item" onclick="showSection('integraciones')">
+                <span>🔌</span>
+                <span>Integraciones API</span>
+            </div>
+            <div class="nav-item" onclick="showSection('analisis')">
+                <span>📈</span>
+                <span>Análisis</span>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard -->
+            <section id="dashboard" class="section active">
+                <h2 style="margin-bottom: 1.5rem; color: var(--azul-oceano);">Dashboard</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Posts Programados</div>
+                        <div class="stat-value">8</div>
+                        <div class="stat-change positive">Este mes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Campañas Activas</div>
+                        <div class="stat-value">2</div>
+                        <div class="stat-change">En progreso</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Ideas Reels</div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-change positive">Disponibles</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Ventas Hoy</div>
+                        <div class="stat-value">$89.4K</div>
+                        <div class="stat-change positive">↑ 12%</div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <div class="action-chip" onclick="openModal('nuevo-post')">
+                        <span>➕</span> Nuevo Post
+                    </div>
+                    <div class="action-chip" onclick="openModal('nueva-campana')">
+                        <span>🚀</span> Nueva Campaña
+                    </div>
+                    <div class="action-chip" onclick="showSection('reels')">
+                        <span>🎬</span> Ver Ideas Reels
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Próximas Publicaciones</h3>
+                    <div id="upcoming-posts"></div>
+                </div>
+            </section>
+
+            <!-- Calendario -->
+            <section id="calendario" class="section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--azul-oceano);">Calendario Editorial - Marzo 2026</h2>
+                
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="btn btn-secondary" onclick="changeMonth(-1)">← Anterior</button>
+                        <h3 id="current-month">Marzo 2026</h3>
+                        <button class="btn btn-secondary" onclick="changeMonth(1)">Siguiente →</button>
+                    </div>
+                    <div class="calendar-grid" id="calendar-grid"></div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3 class="card-title">Leyenda</h3>
+                    <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; background: var(--ocre); border-radius: 4px;"></div>
+                            <span>Programado</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; border: 2px solid var(--azul-oceano); border-radius: 4px;"></div>
+                            <span>Seleccionado</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Campañas -->
+            <section id="campanas" class="section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--azul-oceano);">Campañas de Venta</h2>
+                
+                <button class="btn btn-primary" style="margin-bottom: 1.5rem;" onclick="openModal('nueva-campana')">
+                    ➕ Nueva Campaña
+                </button>
+
+                <div class="campaign-card">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div>
+                            <h3 style="color: var(--terracota); margin-bottom: 0.5rem;">🌸 Mujer del Desierto</h3>
+                            <p style="color: #666; margin-bottom: 0.5rem;">Día de la Mujer - Edición Especial</p>
+                            <p style="font-size: 0.9rem;">Pack: Jabón + Crema + Aceite | $25.900 (ahorro 20%)</p>
+                        </div>
+                        <span class="campaign-status status-active">Activa</span>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                            <span>Ventas: 18/30</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Ver Métricas</button>
+                        <button class="btn btn-whatsapp" style="padding: 0.5rem 1rem; font-size: 0.9rem;" onclick="shareCampaign('mujer')">📱 Compartir</button>
+                    </div>
+                </div>
+
+                <div class="campaign-card">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div>
+                            <h3 style="color: var(--azul-oceano); margin-bottom: 0.5rem;">🎒 Kit Verano Mejillones</h3>
+                            <p style="color: #666; margin-bottom: 0.5rem;">Temporada Turística</p>
+                            <p style="font-size: 0.9rem;">Protector + After sun + Agua micelar</p>
+                        </div>
+                        <span class="campaign-status status-planned">Planeada</span>
+                    </div>
+                    <div style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                        Inicio: 15 de Diciembre 2026
+                    </div>
+                </div>
+            </section>
+
+            <!-- Crear Contenido -->
+            <section id="contenido" class="section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--azul-oceano);">Estudio de Creación</h2>
+                
+                <div class="drop-zone" id="drop-zone" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                    <div class="drop-zone-icon">📸</div>
+                    <div>
+                        <strong>Arrastra tus fotos aquí</strong><br>
+                        <span style="color: #666;">o haz clic para seleccionar</span>
+                    </div>
+                    <input type="file" id="file-input" class="file-input" accept="image/*" multiple onchange="handleFiles(this.files)">
+                    <label for="file-input" class="upload-btn">Seleccionar Imágenes</label>
+                    <div id="upload-preview"></div>
+                </div>
+
+                <div class="canvas-container">
+                    <canvas id="feedCanvas" width="600" height="600"></canvas>
+                </div>
+
+                <div class="tools-panel">
+                    <button class="tool-btn" onclick="addText()">📝 Texto</button>
+                    <button class="tool-btn" onclick="clearCanvas()">🗑️ Limpiar</button>
+                    <button class="tool-btn" onclick="downloadImage()">💾 Descargar</button>
+                    <button class="tool-btn instagram" onclick="postToInstagram()">📷 Subir a IG</button>
+                    <button class="tool-btn facebook" onclick="postToFacebook()">f Subir a FB</button>
+                    <button class="tool-btn whatsapp" onclick="sendByWhatsApp()">💬 Enviar por WA</button>
+                </div>
+            </section>
+
+            <!-- Reels Virales -->
+            <section id="reels" class="section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--azul-oceano);">Biblioteca de Reels Virales</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Ideas Trending para Kany</h3>
+                        <button class="btn btn-primary" onclick="openModal('nueva-idea-reel')">➕ Agregar Idea</button>
+                    </div>
+
+                    <div class="reels-grid">
+                        <!-- Reel 1 -->
+                        <div class="reel-card">
+                            <div class="reel-preview">
+                                🧼✨
+                                <span class="reel-badge" style="background: #ff4757;">🔥 Trending</span>
+                            </div>
+                            <div class="reel-content">
+                                <div class="viral-score">⚡ Viral Score: 9.5/10</div>
+                                <h4 class="reel-title">ASMR: Cortando Jabón Artesanal</h4>
+                                <p class="reel-description">Video satisfactorio del corte de jabones con sonidos naturales. Muy popular en #SoapCutting.</p>
+                                <div class="reel-tags">
+                                    <span class="reel-tag">ASMR</span>
+                                    <span class="reel-tag">Satisfying</span>
+                                    <span class="reel-tag">Proceso</span>
+                                </div>
+                                <div class="reel-actions">
+                                    <button class="btn btn-primary" style="flex: 1; padding: 0.5rem;" onclick="useReelIdea('asmr')">Usar Idea</button>
+                                    <button class="btn btn-secondary" style="padding: 0.5rem;" onclick="saveReelIdea('asmr')">💾</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reel 2 -->
+                        <div class="reel-card">
+                            <div class="reel-preview">
+                                🌊🎬
+                                <span class="reel-badge" style="background: #2ed573;">🆕 Nuevo</span>
+                            </div>
+                            <div class="reel-content">
+                                <div class="viral-score">⚡ Viral Score: 9.2/10</div>
+                                <h4 class="reel-title">POV: Tu skincare viene del mar</h4>
+                                <p class="reel-description">Transición creativa de playa de Mejillones a producto terminado. Usar audio trending.</p>
+                                <div class="reel-tags">
+                                    <span class="reel-tag">POV</span>
+                                    <span class="reel-tag">Transición</span>
+                                    <span class="reel-tag">Trending</span>
+                                </div>
+                                <div class="reel-actions">
+                                    <button class="btn btn-primary" style="flex: 1; padding: 0.5rem;" onclick="useReelIdea('pov')">Usar Idea</button>
+                                    <button class="btn btn-secondary" style="padding: 0.5rem;" onclick="saveReelIdea('pov')">💾</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reel 3 -->
+                        <div class="reel-card">
+                            <div class="reel-preview">
+                                🏜️💚
+                                <span class="reel-badge" style="background: #ffa502;">⭐ Top</span>
+                            </div>
+                            <div class="reel-content">
+                                <div class="viral-score">⚡ Viral Score: 9.8/10</div>
+                                <h4 class="reel-title">Un día siendo Paola</h4>
+                                <p class="reel-description">Vlog de un día completo como emprendedora en Mejillones. Detrás de cámaras auténtico.</p>
+                                <div class="reel-tags">
+                                    <span class="reel-tag">Vlog</span>
+                                    <span class="reel-tag">Storytelling</span>
+                                    <span class="reel-tag">Emprendedora</span>
+                                </div>
+                                <div class="reel-actions">
+                                    <button class="btn btn-primary" style="flex: 1; padding: 0.5rem;" onclick="useReelIdea('vlog')">Usar Idea</button>
+                                    <button class="btn btn-secondary" style="padding: 0.5rem;" onclick="saveReelIdea('vlog')">💾</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reel 4 -->
+                        <div class="reel-card">
+                            <div class="reel-preview">
+                                🧪✨
+                                <span class="reel-badge" style="background: #3742fa;">📚 Educativo</span>
+                            </div>
+                            <div class="reel-content">
+                                <div class="viral-score">⚡ Viral Score: 8.9/10</div>
+                                <h4 class="reel-title">De la alga al jabón: El proceso</h4>
+                                <p class="reel-description">Time-lapse educativo mostrando transformación de alga recolectada en jabón terminado.</p>
+                                <div class="reel-tags">
+                                    <span class="reel-tag">Educativo</span>
+                                    <span class="reel-tag">Proceso</span>
+                                    <span class="reel-tag">Time-lapse</span>
+                                </div>
+                                <div class="reel-actions">
+                                    <button class="btn btn-primary" style="flex: 1; padding: 0.5rem;" onclick="useReelIdea('proceso')">Usar Idea</button>
+                                    <button class="btn btn-secondary" style="padding: 0.5rem;" onclick="saveReelIdea('proceso')">💾</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reel 5 -->
+                        <div class="reel-card">
+                            <div class="reel-preview">
+                                🎁💝
+                                <span class="reel-badge" style="background: #ff6348;">🛒 Venta</span>
+                            </div>
+                            <div class="reel-content">
+                                <div class="viral-score">⚡ Viral Score: 9.0/10</div>
+                                <h4 class="reel-title">Empaquetando pedidos con amor</h4>
+                                <p class="reel-description">Videos satisfactorios de packaging de pedidos reales. Incluir notas personalizadas.</p>
+                                <div class="reel-tags">
+                                    <span class="reel-tag">Packaging</span>
+                                    <span class="reel-tag">Pedidos</span>
+                                    <span class="reel-tag">Satisfying</span>
+                                </div>
+                                <div class="reel-actions">
+                                    <button class="btn btn-primary" style="flex: 1; padding: 0.5rem;" onclick="useReelIdea('packaging')">Usar Idea</button>
+                                    <button class="btn btn-secondary" style="padding: 0.5rem;" onclick="saveReelIdea('packaging')">💾</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reel 6 -->
+                        <div class="reel-card">
+                            <div class="reel-preview">
+                                🌅🏃‍♀️
+                                <span class="reel-badge" style="background: #2ed573;">🌵 Local</span>
+                            </div>
+                            <div class="reel-content">
+                                <div class="viral-score">⚡ Viral Score: 8.7/10</div>
+                                <h4 class="reel-title">Rutina skincare en el desierto</h4>
+                                <p class="reel-description">Mostrar productos en locación icónica de Mejillones (geoglifos, playa, desierto).</p>
+                                <div class="reel-tags">
+                                    <span class="reel-tag">Rutina</span>
+                                    <span class="reel-tag">Locación</span>
+                                    <span class="reel-tag">Mejillones</span>
+                                </div>
+                                <div class="reel-actions">
+                                    <button class="btn btn-primary" style="flex: 1; padding: 0.5rem;" onclick="useReelIdea('rutina')">Usar Idea</button>
+                                    <button class="btn btn-secondary" style="padding: 0.5rem;" onclick="saveReelIdea('rutina')">💾</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3 class="card-title">💡 Tips para hacer virales tus Reels</h3>
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem; line-height: 2; color: #555;">
+                        <li><strong>Primeros 3 segundos:</strong> Engancha con toma impactante del desierto o mar</li>
+                        <li><strong>Audio trending:</strong> Usa audios populares de la región o música andina moderna</li>
+                        <li><strong>Texto en pantalla:</strong> Incluye captions para quienes ven sin sonido</li>
+                        <li><strong>CTA claro:</strong> Termina con "Link en bio" o "Escríbeme al DM"</li>
+                        <li><strong>Constancia:</strong> Publica 4-7 Reels por semana para crecer orgánicamente</li>
+                        <li><strong>Horario óptimo:</strong> 12:00-14:00 y 19:00-21:00 (hora Chile)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Integraciones API -->
+            <section id="integraciones" class="section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--azul-oceano);">Integraciones API</h2>
+                
+                <div class="api-status">
+                    <div class="api-card">
+                        <div class="api-icon instagram">📷</div>
+                        <div class="api-info">
+                            <h4>Instagram Graph API</h4>
+                            <span>@kany_cosmetica_natural</span>
+                        </div>
+                        <div class="api-toggle active" onclick="toggleApi(this, 'instagram')"></div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-icon facebook">f</div>
+                        <div class="api-info">
+                            <h4>Facebook Graph API</h4>
+                            <span>La Tiendita de Kany</span>
+                        </div>
+                        <div class="api-toggle active" onclick="toggleApi(this, 'facebook')"></div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-icon whatsapp">💬</div>
+                        <div class="api-info">
+                            <h4>WhatsApp Business API</h4>
+                            <span>+56 9 6687 4954</span>
+                        </div>
+                        <div class="api-toggle active" onclick="toggleApi(this, 'whatsapp')"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">📋 Guía de Integración Real</h3>
+                    
+                    <div style="margin-top: 1rem;">
+                        <h4 style="color: var(--instagram); margin-bottom: 0.5rem;">1. Instagram Graph API</h4>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-family: monospace; font-size: 0.9rem;">
+                            <strong>Pasos:</strong><br>
+                            1. Crear app en Facebook Developers<br>
+                            2. Configurar Instagram Basic Display o Graph API<br>
+                            3. Obtener Access Token (requiere Business Verification)<br>
+                            4. Usar endpoint: POST /{ig-user-id}/media<br>
+                            <br>
+                            <strong>Costo:</strong> Gratis (límites aplican)<br>
+                            <strong>Docs:</strong> developers.facebook.com/docs/instagram-api
+                        </div>
+
+                        <h4 style="color: var(--facebook); margin-bottom: 0.5rem;">2. Facebook Graph API</h4>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-family: monospace; font-size: 0.9rem;">
+                            <strong>Pasos:</strong><br>
+                            1. Misma app de Facebook Developers<br>
+                            2. Solicitar permisos: pages_manage_posts, pages_read_engagement<br>
+                            3. Obtener Page Access Token<br>
+                            4. Endpoint: POST /{page-id}/feed<br>
+                            <br>
+                            <strong>Costo:</strong> Gratis<br>
+                            <strong>Docs:</strong> developers.facebook.com/docs/graph-api
+                        </div>
+
+                        <h4 style="color: var(--whatsapp); margin-bottom: 0.5rem;">3. WhatsApp Business API</h4>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.9rem;">
+                            <strong>Opción A - Meta (Oficial):</strong><br>
+                            • Requiere Meta Business Verification<br>
+                            • Costo: ~$0.005-0.04 por mensaje<br>
+                            • Complejo de implementar<br>
+                            <br>
+                            <strong>Opción B - Twilio (Recomendado):</strong><br>
+                            • Más fácil de implementar<br>
+                            • Costo: ~$0.005-0.02 por mensaje<br>
+                            • Sandbox disponible para pruebas<br>
+                            <br>
+                            <strong>Opción C - UltraMsg (Simple):</strong><br>
+                            • HTTP API simple<br>
+                            • Costo: Desde $9/mes<br>
+                            • Ideal para empezar rápido<br>
+                            <br>
+                            <strong>Para empezar AHORA (gratis):</strong><br>
+                            Usar: wa.me links (como está implementado)<br>
+                            Ejemplo: https://wa.me/56966874954?text=Hola
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">🔧 Código de Ejemplo para Implementación</h3>
+                    <div style="background: #2d3436; color: #dfe6e9; padding: 1rem; border-radius: 8px; overflow-x: auto; margin-top: 1rem;">
+                        <pre style="margin: 0; font-size: 0.85rem; line-height: 1.5;">// ============================================
+// INTEGRACIÓN INSTAGRAM GRAPH API (Node.js)
+// ============================================
+
+const axios = require('axios');
+
+class InstagramAPI {
+    constructor(accessToken, instagramAccountId) {
+        this.accessToken = accessToken;
+        this.instagramAccountId = instagramAccountId;
+        this.baseUrl = 'https://graph.facebook.com/v18.0';
+    }
+
+    // Subir imagen (Paso 1)
+    async uploadImage(imageUrl, caption) {
+        try {
+            const response = await axios.post(
+                `${this.baseUrl}/${this.instagramAccountId}/media`,
+                {
+                    image_url: imageUrl,
+                    caption: caption,
+                    access_token: this.accessToken
+                }
+            );
+            return response.data.id; // Media ID
+        } catch (error) {
+            console.error('Error subiendo imagen:', error);
+            throw error;
+        }
+    }
+
+    // Publicar (Paso 2)
+    async publish(mediaId) {
+        try {
+            const response = await axios.post(
+                `${this.baseUrl}/${this.instagramAccountId}/media_publish`,
+                {
+                    creation_id: mediaId,
+                    access_token: this.accessToken
+                }
+            );
+            return response.data;
+        } catch (error) {
+            console.error('Error publicando:', error);
+            throw error;
+        }
+    }
+
+    // Programar publicación (usando cron job)
+    async schedulePost(imageUrl, caption, scheduledTime) {
+        // Guardar en base de datos
+        const post = await db.posts.create({
+            imageUrl,
+            caption,
+            scheduledTime,
+            status: 'pending'
+        });
+
+        // El cron job revisa cada minuto y publica
+        return post;
+    }
+}
+
+// ============================================
+// INTEGRACIÓN WHATSAPP (Twilio)
+// ============================================
+
+const twilio = require('twilio');
+
+class WhatsAppService {
+    constructor(accountSid, authToken) {
+        this.client = twilio(accountSid, authToken);
+        this.fromNumber = 'whatsapp:+14155238886'; // Número de Twilio
+        this.toNumber = 'whatsapp:+56966874954'; // Tu número
+    }
+
+    async sendReminder(message) {
+        try {
+            const response = await this.client.messages.create({
+                from: this.fromNumber,
+                to: this.toNumber,
+                body: message
+            });
+            console.log('Mensaje enviado:', response.sid);
+            return response;
+        } catch (error) {
+            console.error('Error enviando WhatsApp:', error);
+            throw error;
+        }
+    }
+
+    // Enviar recordatorio de post programado
+    async sendPostReminder(post) {
+        const message = `📅 *Recordatorio Kany Manager*
+        
+Tienes un post programado:
+🕐 ${post.scheduledTime}
+📱 ${post.platform}
+📝 ${post.caption.substring(0, 50)}...
+
+¡Es hora de publicar!`;
+        
+        return this.sendReminder(message);
+    }
+}
+
+// ============================================
+// INTEGRACIÓN WHATSAPP (UltraMsg - Simple)
+// ============================================
+
+class UltraMsgService {
+    constructor(instanceId, token) {
+        this.instanceId = instanceId;
+        this.token = token;
+        this.baseUrl = `https://api.ultramsg.com/${instanceId}`;
+    }
+
+    async sendMessage(to, message) {
+        try {
+            const response = await axios.post(`${this.baseUrl}/messages/chat`, {
+                token: this.token,
+                to: to,
+                body: message,
+                priority: 10
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
+    }
+
+    async sendImage(to, imageUrl, caption) {
+        try {
+            const response = await axios.post(`${this.baseUrl}/messages/image`, {
+                token: this.token,
+                to: to,
+                image: imageUrl,
+                caption: caption
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
+    }
+}
+
+// ============================================
+// USO EN TU APLICACIÓN
+// ============================================
+
+// Ejemplo: Programar post con recordatorio WhatsApp
+async function schedulePostWithReminder(postData) {
+    // 1. Guardar en base de datos
+    const post = await db.posts.create(postData);
+    
+    // 2. Programar publicación Instagram
+    await instagramAPI.schedulePost(
+        postData.imageUrl,
+        postData.caption,
+        postData.scheduledTime
+    );
+    
+    // 3. Enviar recordatorio WhatsApp (1 hora antes)
+    const reminderTime = new Date(postData.scheduledTime);
+    reminderTime.setHours(reminderTime.getHours() - 1);
+    
+    setTimeout(() => {
+        whatsAppService.sendPostReminder(post);
+    }, reminderTime - new Date());
+    
+    return post;
+}</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Análisis -->
+            <section id="analisis" class="section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--azul-oceano);">Análisis Mensual</h2>
+                <div class="card">
+                    <canvas id="growthChart" width="800" height="300"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Nuevo Post -->
+    <div id="modal-nuevo-post" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color: var(--azul-oceano);">Programar Nueva Publicación</h2>
+                <button class="close-btn" onclick="closeModal('nuevo-post')">&times;</button>
+            </div>
+            <form onsubmit="savePost(event)">
+                <div class="form-group">
+                    <label class="form-label">Plataforma</label>
+                    <div class="platform-selector">
+                        <div class="platform-option selected" onclick="selectPlatform('instagram')">
+                            <span style="font-size: 2rem;">📷</span>
+                            <div>Instagram</div>
+                        </div>
+                        <div class="platform-option" onclick="selectPlatform('facebook')">
+                            <span style="font-size: 2rem;">f</span>
+                            <div>Facebook</div>
+                        </div>
+                        <div class="platform-option" onclick="selectPlatform('both')">
+                            <span style="font-size: 2rem;">📱</span>
+                            <div>Ambas</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Fecha y Hora</label>
+                    <input type="datetime-local" class="form-input" id="post-datetime" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tipo de Contenido</label>
+                    <select class="form-select" id="post-type">
+                        <option>Feed - Foto</option>
+                        <option>Feed - Carousel</option>
+                        <option>Reel</option>
+                        <option>Historia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Caption</label>
+                    <textarea class="form-textarea" id="post-caption" placeholder="Escribe el texto del post..." oninput="updateHashtags()"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Hashtags Sugeridos</label>
+                    <div id="suggested-hashtags" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span style="color: #999;">Escribe el caption para ver sugerencias...</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="post-whatsapp" checked>
+                        Enviar recordatorio a +56 9 6687 4954
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    💾 Guardar y Programar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nueva Campaña -->
+    <div id="modal-nueva-campana" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color: var(--azul-oceano);">Nueva Campaña de Venta</h2>
+                <button class="close-btn" onclick="closeModal('nueva-campana')">&times;</button>
+            </div>
+            <form onsubmit="saveCampaign(event)">
+                <div class="form-group">
+                    <label class="form-label">Nombre de la Campaña</label>
+                    <input type="text" class="form-input" placeholder="Ej: Día de la Mujer 2026" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Producto/Oferta</label>
+                    <input type="text" class="form-input" placeholder="Ej: Pack Jabón + Crema + Aceite" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Precio Oferta</label>
+                    <input type="number" class="form-input" placeholder="25900" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Fecha Inicio - Fin</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="date" class="form-input" required>
+                        <input type="date" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Meta de Ventas</label>
+                    <input type="number" class="form-input" placeholder="30" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    🚀 Crear Campaña
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nueva Idea Reel -->
+    <div id="modal-nueva-idea-reel" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color: var(--azul-oceano);">Agregar Idea de Reel</h2>
+                <button class="close-btn" onclick="closeModal('nueva-idea-reel')">&times;</button>
+            </div>
+            <form onsubmit="saveReelIdeaForm(event)">
+                <div class="form-group">
+                    <label class="form-label">Título</label>
+                    <input type="text" class="form-input" placeholder="Ej: Mi rutina de skincare matutina" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Descripción</label>
+                    <textarea class="form-textarea" placeholder="Describe la idea del video..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Categorías</label>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <label style="display: flex; align-items: center; gap: 0.3rem;">
+                            <input type="checkbox"> ASMR
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.3rem;">
+                            <input type="checkbox"> Tutorial
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.3rem;">
+                            <input type="checkbox"> Behind scenes
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.3rem;">
+                            <input type="checkbox"> Trending
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Guardar Idea</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // CONFIGURACIÓN
+        // ==========================================
+        const CONFIG = {
+            whatsappNumber: '56966874954',
+            instagramAccount: 'kany_cosmetica_natural',
+            facebookPage: 'LaTienditadekany',
+            // Aquí irían las API keys (en producción usar variables de entorno)
+            apis: {
+                instagram: {
+                    enabled: false, // Cambiar a true cuando tengas token
+                    accessToken: null,
+                    accountId: null
+                },
+                facebook: {
+                    enabled: false,
+                    accessToken: null,
+                    pageId: null
+                },
+                whatsapp: {
+                    enabled: true, // Usando wa.me links (gratis)
+                    service: 'wame' // 'wame', 'twilio', 'ultramsg'
+                }
+            }
+        };
+
+        // ==========================================
+        // ESTADO
+        // ==========================================
+        let currentMonth = 2; // Marzo
+        let currentYear = 2026;
+        let selectedPlatform = 'instagram';
+        let posts = [
+            { date: '2026-03-08', type: 'feed', title: '🌸 Día de la Mujer', platform: 'instagram', time: '09:00' },
+            { date: '2026-03-15', type: 'reel', title: '🎬 Proceso artesanal', platform: 'both', time: '12:00' },
+            { date: '2026-03-22', type: 'story', title: '📦 Packaging nuevo', platform: 'instagram', time: '18:00' },
+            { date: '2026-03-25', type: 'feed', title: '🌵 Detrás de cámaras', platform: 'facebook', time: '15:00' }
+        ];
+
+        // ==========================================
+        // NAVEGACIÓN
+        // ==========================================
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.closest('.nav-item').classList.add('active');
+            
+            if (sectionId === 'calendario') generateCalendar();
+            if (sectionId === 'analisis') drawGrowthChart();
+        }
+
+        // ==========================================
+        // CALENDARIO MEJORADO
+        // ==========================================
+        function generateCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            // Headers
+            const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            days.forEach(day => {
+                const div = document.createElement('div');
+                div.className = 'calendar-day-header';
+                div.textContent = day;
+                grid.appendChild(div);
+            });
+            
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            
+            // Espacios vacíos
+            for (let i = 0; i < firstDay; i++) {
+                const div = document.createElement('div');
+                grid.appendChild(div);
+            }
+            
+            // Días
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day';
+                
+                const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayPosts = posts.filter(p => p.date === dateStr);
+                
+                let html = `<div class="calendar-day-number">${day}</div>`;
+                
+                if (dayPosts.length > 0) {
+                    cell.classList.add('has-content');
+                    dayPosts.forEach(post => {
+                        html += `<div class="calendar-day-content" title="${post.title}">${post.platform === 'both' ? '📱' : post.platform === 'instagram' ? '📷' : 'f'} ${post.title.substring(0, 15)}...</div>`;
+                    });
+                }
+                
+                cell.innerHTML = html;
+                
+                if (day === new Date().getDate() && currentMonth === new Date().getMonth()) {
+                    cell.classList.add('selected');
+                }
+                
+                cell.onclick = () => {
+                    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+                    cell.classList.add('selected');
+                    openModal('nuevo-post');
+                };
+                
+                grid.appendChild(cell);
+            }
+            
+            const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            document.getElementById('current-month').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+        }
+
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar();
+        }
+
+        // ==========================================
+        // DRAG & DROP
+        // ==========================================
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            handleFiles(e.dataTransfer.files);
+        }
+
+        function handleFiles(files) {
+            const preview = document.getElementById('upload-preview');
+            preview.innerHTML = '';
+            
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '200px';
+                        img.style.margin = '10px';
+                        img.style.borderRadius = '8px';
+                        preview.appendChild(img);
+                        
+                        loadImageToCanvas(e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function loadImageToCanvas(src) {
+            const canvas = document.getElementById('feedCanvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            img.onload = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+                const x = (canvas.width / 2) - (img.width / 2) * scale;
+                const y = (canvas.height / 2) - (img.height / 2) * scale;
+                ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+            };
+            img.src = src;
+        }
+
+        // ==========================================
+        // CANVAS
+        // ==========================================
+        function addText() {
+            const canvas = document.getElementById('feedCanvas');
+            const ctx = canvas.getContext('2d');
+            const text = prompt('Texto a agregar:', 'Kany Natural');
+            if (text) {
+                ctx.fillStyle = '#006D77';
+                ctx.font = 'bold 40px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(text, 300, 300);
+            }
+        }
+
+        function clearCanvas() {
+            const canvas = document.getElementById('feedCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#F5F5F0';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('upload-preview').innerHTML = '';
+        }
+
+        function downloadImage() {
+            const canvas = document.getElementById('feedCanvas');
+            const link = document.createElement('a');
+            link.download = `kany-${Date.now()}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+            showToast('Imagen descargada', 'success');
+        }
+
+        // ==========================================
+        // INTEGRACIONES REALES (SIMULADAS/FUNCIONALES)
+        // ==========================================
+        
+        // WhatsApp (Funcional con wa.me)
+        function sendByWhatsApp() {
+            const canvas = document.getElementById('feedCanvas');
+            const imageData = canvas.toDataURL('image/png');
+            
+            // En producción: subir imagen a servidor y obtener URL
+            const message = 'Hola Paola, te comparto el diseño que acabo de crear en Kany Manager. ¿Qué te parece?';
+            const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            showToast('Abriendo WhatsApp...', 'whatsapp');
+        }
+
+        // Instagram (Simulado - requiere API)
+        async function postToInstagram() {
+            if (!CONFIG.apis.instagram.enabled) {
+                showToast('Instagram API no configurada. Ver guía en Integraciones.', 'error');
+                openModal('integraciones-info');
+                return;
+            }
+            
+            // Aquí iría la llamada real a la API
+            showToast('Publicando en Instagram...', 'info');
+            // Simulación
+            setTimeout(() => showToast('Publicado en Instagram', 'success'), 2000);
+        }
+
+        // Facebook (Simulado - requiere API)
+        async function postToFacebook() {
+            if (!CONFIG.apis.facebook.enabled) {
+                showToast('Facebook API no configurada. Ver guía en Integraciones.', 'error');
+                return;
+            }
+            showToast('Publicando en Facebook...', 'info');
+            setTimeout(() => showToast('Publicado en Facebook', 'success'), 2000);
+        }
+
+        // Compartir campaña
+        function shareCampaign(campaignId) {
+            const message = `🌸 *Campaña Especial Kany* 🌸\n\nPack Mujer del Desierto\n💰 $25.900 (20% off)\n🎁 Incluye: Jabón + Crema + Aceite\n\n¡Escríbeme para pedir el tuyo!`;
+            const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // ==========================================
+        // REELS
+        // ==========================================
+        function useReelIdea(ideaId) {
+            const ideas = {
+                'asmr': 'ASMR: Cortando Jabón Artesanal',
+                'pov': 'POV: Tu skincare viene del mar',
+                'vlog': 'Un día siendo Paola',
+                'proceso': 'De la alga al jabón',
+                'packaging': 'Empaquetando pedidos con amor',
+                'rutina': 'Rutina skincare en el desierto'
+            };
+            
+            showToast(`Idea "${ideas[ideaId]}" seleccionada`, 'success');
+            openModal('nuevo-post');
+            document.getElementById('post-type').value = 'Reel';
+            document.getElementById('post-caption').value = `🎬 ${ideas[ideaId]}\n\n#Reels #KanyCosmetica #HechoEnMejillones`;
+        }
+
+        function saveReelIdea(ideaId) {
+            showToast('Idea guardada en favoritos', 'success');
+        }
+
+        // ==========================================
+        // MODALES Y FORMULARIOS
+        // ==========================================
+        function openModal(id) {
+            document.getElementById(`modal-${id}`).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(`modal-${id}`).classList.remove('active');
+        }
+
+        function selectPlatform(platform) {
+            selectedPlatform = platform;
+            document.querySelectorAll('.platform-option').forEach(p => p.classList.remove('selected'));
+            event.target.closest('.platform-option').classList.add('selected');
+        }
+
+        function updateHashtags() {
+            const caption = document.getElementById('post-caption').value.toLowerCase();
+            const container = document.getElementById('suggested-hashtags');
+            
+            const hashtags = [];
+            if (caption.includes('jabón')) hashtags.push('#JabonArtesanal', '#CosmeticaNatural');
+            if (caption.includes('mujer')) hashtags.push('#DiaDeLaMujer', '#Emprendedora');
+            if (caption.includes('mejillones')) hashtags.push('#HechoEnMejillones', '#NorteDeChile');
+            if (caption.includes('alga')) hashtags.push('#AlgaMarina', '#IngredientesNaturales');
+            
+            if (hashtags.length === 0) {
+                hashtags.push('#KanyCosmetica', '#HechoAMano', '#Natural');
+            }
+            
+            container.innerHTML = hashtags.map(tag => 
+                `<span style="background: var(--azul-oceano); color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.85rem; cursor: pointer;" onclick="navigator.clipboard.writeText('${tag}')">${tag}</span>`
+            ).join('');
+        }
+
+        function savePost(e) {
+            e.preventDefault();
+            
+            const datetime = document.getElementById('post-datetime').value;
+            const type = document.getElementById('post-type').value;
+            const caption = document.getElementById('post-caption').value;
+            const sendWhatsApp = document.getElementById('post-whatsapp').checked;
+            
+            const newPost = {
+                date: datetime.split('T')[0],
+                time: datetime.split('T')[1],
+                type: type,
+                title: caption.substring(0, 30),
+                platform: selectedPlatform,
+                caption: caption
+            };
+            
+            posts.push(newPost);
+            
+            // Enviar recordatorio WhatsApp
+            if (sendWhatsApp) {
+                const reminderTime = new Date(datetime);
+                reminderTime.setHours(reminderTime.getHours() - 1);
+                
+                const now = new Date();
+                const delay = reminderTime - now;
+                
+                if (delay > 0) {
+                    setTimeout(() => {
+                        const message = `📅 *Recordatorio Kany Manager*\n\nTienes un post programado:\n🕐 ${datetime}\n📱 ${type}\n💬 ${caption.substring(0, 50)}...\n\n¡Es hora de publicar!`;
+                        window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+                    }, delay);
+                }
+            }
+            
+            showToast('Post programado correctamente', 'success');
+            closeModal('nuevo-post');
+            generateCalendar();
+            renderUpcomingPosts();
+        }
+
+        function saveCampaign(e) {
+            e.preventDefault();
+            showToast('Campaña creada exitosamente', 'success');
+            closeModal('nueva-campana');
+        }
+
+        function saveReelIdeaForm(e) {
+            e.preventDefault();
+            showToast('Idea guardada', 'success');
+            closeModal('nueva-idea-reel');
+        }
+
+        // ==========================================
+        // UTILIDADES
+        // ==========================================
+        function renderUpcomingPosts() {
+            const container = document.getElementById('upcoming-posts');
+            const upcoming = posts.filter(p => new Date(p.date) >= new Date()).slice(0, 3);
+            
+            container.innerHTML = upcoming.map(post => `
+                <div style="display: flex; justify-content: space-between; padding: 1rem; background: var(--sal); border-radius: 8px; margin-bottom: 0.5rem;">
+                    <div>
+                        <strong>${post.title}</strong>
+                        <span style="color: #666; display: block; font-size: 0.85rem;">${post.date} ${post.time} - ${post.platform}</span>
+                    </div>
+                    <span style="background: var(--ocre); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.75rem;">${post.type}</span>
+                </div>
+            `).join('');
+        }
+
+        function toggleApi(element, api) {
+            element.classList.toggle('active');
+            CONFIG.apis[api].enabled = element.classList.contains('active');
+            showToast(`${api} ${element.classList.contains('active') ? 'activado' : 'desactivado'}`, 'info');
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const text = document.getElementById('toast-message');
+            
+            text.textContent = message;
+            
+            if (type === 'success') {
+                icon.textContent = '✓';
+                toast.style.background = 'var(--verde-alga)';
+            } else if (type === 'error') {
+                icon.textContent = '✕';
+                toast.style.background = 'var(--terracota)';
+            } else if (type === 'whatsapp') {
+                icon.textContent = '📱';
+                toast.style.background = 'var(--whatsapp)';
+            } else {
+                icon.textContent = 'ℹ';
+                toast.style.background = 'var(--azul-oceano)';
+            }
+            
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function drawGrowthChart() {
+            const canvas = document.getElementById('growthChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Dibujar línea simple
+            ctx.strokeStyle = '#006D77';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(50, 250);
+            ctx.lineTo(750, 50);
+            ctx.stroke();
+            
+            ctx.fillStyle = '#666';
+            ctx.font = '14px Arial';
+            ctx.fillText('Crecimiento proyectado', 50, 30);
+        }
+
+        // ==========================================
+        // INICIALIZACIÓN
+        // ==========================================
+        window.onload = function() {
+            generateCalendar();
+            renderUpcomingPosts();
+            
+            // Set fecha mínima en datetime-local
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('post-datetime').min = now.toISOString().slice(0, 16);
+        };
+
+        // Cerrar modales al hacer click fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        };
+    </script>
+</body>
+</html>
